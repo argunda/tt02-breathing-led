@@ -10,7 +10,8 @@ module tb (
     // testbench is controlled by test.py
     input clk,
     input rst,
-    output [6:0] segments
+    input test_in,
+    output pwm
    );
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
@@ -23,10 +24,9 @@ module tb (
     // wire up the inputs and outputs
     wire [7:0] inputs = {6'b0, rst, clk};
     wire [7:0] outputs;
-    assign segments = outputs[6:0];
-
+    assign pwm = outputs[0];
     // instantiate the DUT
-    seven_segment_seconds #(.MAX_COUNT(100)) seven_segment_seconds(
+    pwm_gen pwm_gen(
         .io_in  (inputs),
         .io_out (outputs)
         );
