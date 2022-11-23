@@ -13,13 +13,14 @@ reg [6:0] duty;
 reg pwm;
 assign io_out = {duty, pwm};
 
+  //upcounter for pwm generation
 always @(posedge clk) begin
     if (reset)
         pwm_counter <= 0;
     else
         pwm_counter <= pwm_counter + 1;
 end
-
+  //duty state machine to determine countup or countdown
 always @(posedge clk) begin
     if (reset) begin
         counter_state = 0;
@@ -38,7 +39,7 @@ always @(posedge clk) begin
             endcase
     end
 end
-  
+  //generate duty
 always @(posedge clk) begin
     if (reset) begin
         duty <= 0;
@@ -52,7 +53,7 @@ always @(posedge clk) begin
         end
     end
 end
-  
+  //generate pwm where duty determines it's duty cycle
 always @(posedge clk) begin
     if(reset) begin
         pwm <= 0;
