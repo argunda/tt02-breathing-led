@@ -13,7 +13,6 @@ reg [6:0] duty;
 reg pwm;
 assign io_out = {duty, pwm};
 
-
 always @(posedge clk) begin
     if (reset)
         pwm_counter <= 0;
