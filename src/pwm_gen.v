@@ -4,13 +4,14 @@ module pwm_gen (
   input [7:0] io_in,
   output [7:0] io_out
 );
+  
 wire clk = io_in[0];
 wire reset = io_in[1];
 reg counter_state;
 reg [5:0] pwm_counter;
 reg [6:0] duty;
 reg pwm;
-assign io_out = {7'b0, pwm};
+assign io_out = {duty, pwm};
 
 
 always @(posedge clk) begin
@@ -38,6 +39,7 @@ always @(posedge clk) begin
             endcase
     end
 end
+  
 always @(posedge clk) begin
     if (reset) begin
         duty <= 0;
@@ -51,6 +53,7 @@ always @(posedge clk) begin
         end
     end
 end
+  
 always @(posedge clk) begin
     if(reset) begin
         pwm <= 0;
