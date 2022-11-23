@@ -13,7 +13,7 @@ reg [6:0] duty;
 reg pwm;
 assign io_out = {duty, pwm};
 
-  //upcounter for pwm generation
+  //upcounter which determines pwm period 
 always @(posedge clk) begin
     if (reset)
         pwm_counter <= 0;
