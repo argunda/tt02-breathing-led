@@ -11,7 +11,8 @@ module tb (
     input clk,
     input rst,
     input test_in,
-    output pwm
+    output pwm,
+    output [6:0] duty
    );
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
@@ -25,6 +26,7 @@ module tb (
     wire [7:0] inputs = {6'b0, rst, clk};
     wire [7:0] outputs;
     assign pwm = outputs[0];
+    assign duty = outputs[7:1];
     // instantiate the DUT
     pwm_gen pwm_gen(
         .io_in  (inputs),
